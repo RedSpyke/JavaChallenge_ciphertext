@@ -58,15 +58,24 @@ public class Main {
             }
         }
 
-        System.out.println();
         for (int i = 0; i < nrRowsMatrix + 2; i++) {
             for (int j = 0; j < keywordLength; j++) {
                 System.out.print(matrix[i][j] + " ");
             }
             System.out.println();
         }
-
-
+        // cipher text
+        String cipherText = "";
+        for (int k = 1; k <= keywordLength ; k++) {
+            for (int i = 0; i < keywordLength; i++) {
+                if(Character.forDigit(k,10) == matrix[nrRowsMatrix+1][i]){
+                    for (int j = 1; j < nrRowsMatrix + 1; j++) {
+                        cipherText += matrix[j][i];
+                    }
+                }
+            }
+        }
+        System.out.println(cipherText);
     }
 
 }
