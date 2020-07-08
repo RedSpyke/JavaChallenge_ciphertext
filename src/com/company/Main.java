@@ -7,45 +7,47 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-
         Scanner input = new Scanner(System.in);
-
-     //  String msg = input.nextLine().toLowerCase().replaceAll(" ", "").replaceAll("\\W", "");
-    //    String keyword = input.nextLine();
-        String msg = "showoffyourskillsandfindanewamazingjob";
-        String keyword = "jobful";
+        String msg = input.nextLine();
+        String keyword = input.nextLine();
         input.close();
+        System.out.println(cipherText(msg,keyword));
 
-       // System.out.println(msg);
+    }
+
+    public static String cipherText (String message, String keyWord){
+
+        String msg = message.toLowerCase().replaceAll(" ", "").replaceAll("\\W", "");
+        // System.out.println(msg);
         int msgLength = msg.length();
-        int keywordLength = keyword.length();
+        int keywordLength = keyWord.length();
         int nrRowsMatrix;
         if((msgLength % keywordLength) == 0 ){
-           nrRowsMatrix  = msgLength / keywordLength;
+            nrRowsMatrix  = msgLength / keywordLength;
         }
         else {
             nrRowsMatrix = msgLength / keywordLength + 1;
         }
-      //  System.out.println(nrRowsMatrix);
+        //  System.out.println(nrRowsMatrix);
 
         char [] msgCh = msg.toCharArray();
-        char [] keywordCh = keyword.toCharArray();
+        char [] keywordCh = keyWord.toCharArray();
         char [][] matrix = new char[nrRowsMatrix + 2][keywordLength];
         int a = 0;
         // fill the matrix with the letters
         for (int i = 0; i < nrRowsMatrix + 2; i++) {
             for (int j = 0; j < keywordLength; j++) {
-                    if(i == 0){
-                        matrix[i][j] = keywordCh[j];
+                if(i == 0){
+                    matrix[i][j] = keywordCh[j];
+                }
+                else if (i != nrRowsMatrix +1){
+                    if(a < msgCh.length){
+                        matrix[i][j] = msgCh[a];
+                    }else {
+                        matrix[i][j] = 'x';
                     }
-                    else if (i != nrRowsMatrix +1){
-                         if(a < msgCh.length){
-                             matrix[i][j] = msgCh[a];
-                         }else {
-                             matrix[i][j] = 'x';
-                         }
-                         a++;
-                    }
+                    a++;
+                }
             }
         }
         // order of rows
@@ -57,13 +59,13 @@ public class Main {
                 }
             }
         }
-
-        for (int i = 0; i < nrRowsMatrix + 2; i++) {
-            for (int j = 0; j < keywordLength; j++) {
-                System.out.print(matrix[i][j] + " ");
-            }
-            System.out.println();
-        }
+        // printing matrix
+//        for (int i = 0; i < nrRowsMatrix + 2; i++) {
+//            for (int j = 0; j < keywordLength; j++) {
+//                System.out.print(matrix[i][j] + " ");
+//            }
+//            System.out.println();
+//        }
         // cipher text
         String cipherText = "";
         for (int k = 1; k <= keywordLength ; k++) {
@@ -75,7 +77,8 @@ public class Main {
                 }
             }
         }
-        System.out.println(cipherText);
+        // System.out.println(cipherText);
+        return  cipherText;
     }
 
 }
