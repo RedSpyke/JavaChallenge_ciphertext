@@ -1,7 +1,8 @@
 package com.company;
 
+import java.util.Arrays;
 import java.util.Scanner;
-import java.util.spi.AbstractResourceBundleProvider;
+
 
 public class Main {
 
@@ -29,12 +30,9 @@ public class Main {
 
         char [] msgCh = msg.toCharArray();
         char [] keywordCh = keyword.toCharArray();
-
         char [][] matrix = new char[nrRowsMatrix + 2][keywordLength];
-
-
         int a = 0;
-
+        // fill the matrix with the letters
         for (int i = 0; i < nrRowsMatrix + 2; i++) {
             for (int j = 0; j < keywordLength; j++) {
                     if(i == 0){
@@ -50,7 +48,17 @@ public class Main {
                     }
             }
         }
+        // order of rows
+        Arrays.sort(keywordCh);
+        for (int i = 0; i < keywordCh.length; i++) {
+            for (int j = 0; j < keywordCh.length; j++) {
+                if(matrix[0][j] == keywordCh [i]){
+                    matrix [nrRowsMatrix +1][j] = Character.forDigit(i + 1,10);
+                }
+            }
+        }
 
+        System.out.println();
         for (int i = 0; i < nrRowsMatrix + 2; i++) {
             for (int j = 0; j < keywordLength; j++) {
                 System.out.print(matrix[i][j] + " ");
