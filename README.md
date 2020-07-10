@@ -1,2 +1,2 @@
 # JavaChallenge_ciphertext
-Encrypting using a keyword-based transposition cipher
+Encrypting and decripting using a keyword-based transposition cipher
