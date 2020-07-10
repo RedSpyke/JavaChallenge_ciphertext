@@ -11,8 +11,8 @@ public class Main {
         String msg = input.nextLine();
         String keyword = input.nextLine();
         input.close();
-        System.out.println(cipherText(msg,keyword));
-
+        //    System.out.println(cipherText(msg,keyword));
+        System.out.println(decipherText(msg,keyword));
     }
 
     public static String cipherText (String message, String keyWord){
@@ -80,5 +80,50 @@ public class Main {
         // System.out.println(cipherText);
         return  cipherText;
     }
+
+    public static String decipherText (String message, String keyWord){
+
+        int cipheredTextLength = message.length();
+        int keyWordLength = keyWord.length();
+        int nrRowsMatrix = cipheredTextLength / keyWordLength;
+
+        char [][] matrix = new char[nrRowsMatrix + 2][keyWordLength];
+        char[] cipheredMessageCh =  message.toCharArray();
+        char [] keyWordCh = keyWord.toCharArray();
+
+        System.arraycopy(keyWordCh, 0, matrix[0], 0, keyWordLength);
+
+        Arrays.sort(keyWordCh);
+        for (int i = 0; i < keyWordCh.length; i++) {
+            for (int j = 0; j < keyWordCh.length; j++) {
+                if(matrix[0][j] == keyWordCh [i]){
+                    matrix [nrRowsMatrix +1][j] = Character.forDigit(i + 1,10);
+                }
+            }
+        }
+
+        int text = 0;
+        for (int k = 1; k <= keyWordLength ; k++) {
+            for (int i = 0; i < keyWordLength; i++) {
+                if(Character.forDigit(k,10) == matrix[nrRowsMatrix+1][i]){
+                    for (int j = 1; j < nrRowsMatrix + 1; j++) {
+                        matrix[j][i] = cipheredMessageCh[text];
+                        text++;
+                    }
+                }
+            }
+        }
+
+        StringBuilder decipheredText = new StringBuilder();
+        for (int i = 1; i < nrRowsMatrix + 1; i++) {
+            for (int j = 0; j < keyWordLength ; j++) {
+                decipheredText.append(matrix[i][j]);
+            }
+
+        }
+        return String.valueOf(decipheredText);
+    }
+
+
 
 }
